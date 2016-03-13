@@ -1,39 +1,94 @@
 /**
  * Created by Administrator on 2016/3/13.
  */
-function Swiper(container,params) {
-    var $container = $(container);
-    var $target = $container.find('.page-current');
+function Swiper(container, params) {
     var now = {row: 1, col: 1}, last = {row: 0, col: 0};
     const towards = {up: 1, right: 2, down: 3, left: 4};
     var isAnimating = false;
 
-    var screen_scale = window.innerWidth / 500;
+    var screen_scale = window.innerHeight / 500;
+    //console.log('screen_scale:'+screen_scale);
     var enlarge_top = 250 * (1 - screen_scale);//放大后超出页面上面的部分
-    $('.wrap').css('-webkit-transform', 'scale(' + s + ',' + s + ') translate(0px,-' + ss + 'px)');
+    //console.log('enlarge_top:'+enlarge_top);
+    $('.wrap').css('-webkit-transform', 'scale(' + screen_scale + ',' + screen_scale + ') translate(0px,-' + enlarge_top + 'px)');
 
-    touch.on($container,'touchstart',function(event){
+    console.log('touch:' + touch);
+
+    touch.on(container, 'touchstart', function (event) {
+        //console.log('touchstart...');
         event.preventDefault();
     });
 
-    touch.on($target, 'swipeup', function(ev){
+    touch.on(container, 'swipeup', function (ev) {
         if (isAnimating) return;
+        //console.log('swipeup...');
         last.row = now.row;
         last.col = now.col;
-        if (last.row != $(container+' .slide').length) { now.row = last.row+1; now.col = 1; pageMove(towards.up);}
-        else{ now.row = 1; now.col = 1; pageMove(towards.up);}
+        if (last.row != $(container + ' .pageGroup').length) {
+            now.row = last.row + 1;
+            now.col = 1;
+            pageMove(towards.up);
+        }
+        else {
+            now.row = 1;
+            now.col = 1;
+            pageMove(towards.up);
+        }
     });
 
-    touch.on($target, 'swipedown', function(ev){
+    touch.on(container, 'swipedown', function (ev) {
         if (isAnimating) return;
         last.row = now.row;
         last.col = now.col;
-        if (last.row!=1) { now.row = last.row-1; now.col = 1; pageMove(towards.down);}
+        now.col = 1;
+        if (last.row != 1) {
+            now.row = last.row - 1;
+            pageMove(towards.down);
+        }
+        else {
+            now.row = $(container + ' .pageGroup').length;
+            pageMove(towards.down);
+        }
+    });
+
+    touch.on(container, 'swipeleft', function (ev) {
+        if (isAnimating) return;
+        var pageNum = $('.page-current').parent().children('.page').length;
+        //console.log('pageNum:'+pageNum);
+        if (pageNum > 1) {
+            last.row = now.row;
+            last.col = now.col;
+            if (last.col >= pageNum) {
+                now.col = 1;
+            } else {
+                now.col = last.col + 1;
+            }
+            pageMove(towards.left);
+        }
+
+    });
+
+    touch.on(container, 'swiperight', function (ev) {
+        if (isAnimating) return;
+        var pageNum = $('.page-current').parent().children('.page').length;
+        if (pageNum > 1) {
+            last.row = now.row;
+            last.col = now.col;
+            if (last.col <= 1) {
+                now.col = pageNum;
+            } else {
+                now.col = last.col - 1;
+            }
+            pageMove(towards.right);
+        }
+
     });
 
     function pageMove(tw) {
-        var nowPage = $($(container + ' .slide')[now.row - 1]).children('.page')[now.col - 1];
-        var lastPage = $($(container + ' .slide')[last.row - 1]).children('.page')[last.col - 1];
+        var nowPage = $($(container + ' .pageGroup')[now.row - 1]).children('.page')[now.col - 1];
+        //console.log('nowPage:' + nowPage);
+        var lastPage = $($(container + ' .pageGroup')[last.row - 1]).children('.page')[last.col - 1];
+        //console.log('lastPage:' + lastPage);
 
         switch (tw) {
             case towards.up:
@@ -72,7 +127,5 @@ function Swiper(container,params) {
             isAnimating = false;
         }, 600);
 
-        //console.log('lastPage:'+lastPage.className);
-        //console.log('nowPage:'+nowPage.className);
     }
 }
