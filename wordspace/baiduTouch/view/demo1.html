@@ -15,11 +15,11 @@
 <body>
 <div class="container">
     <div class="pageGroup">
-        <div class="page page-1-1 page-current">
+        <div class="page page-1-1 hide">
             <div class="wrap">
-                <img class="img_1 pt-page-moveFromTop" src="../resource/img/cover.png" />
-                <img class="img_2 pt-page-moveFromLeft" src="../resource/img/wording_cover.png" />
-                <img class="img_3 pt-page-moveIconUp" src="../resource/img/icon_up.png" />
+                <img class="img_1 hide pt-page-moveFromTop" src="../resource/img/cover.png" />
+                <img class="img_2 hide pt-page-moveFromLeft" src="../resource/img/wording_cover.png" />
+                <img class="img_3 hide pt-page-moveIconUp" src="../resource/img/icon_up.png" />
             </div>
         </div>
     </div>
@@ -107,104 +107,6 @@
     window.onload = function(){
         var swiper = new Swiper('.container',{});
     }
-   /* var container = '.container';
-    var target = container+' .page-current';
-    console.log('target:'+target);
-    var now = {row: 1, col: 1}, last = {row: 0, col: 0};
-    const towards = {up: 1, right: 2, down: 3, left: 4};
-    var isAnimating = false;
-
-    var screen_scale = window.innerHeight / 500;
-    //console.log('screen_scale:'+screen_scale);
-    var enlarge_top = 250 * (1 - screen_scale);//放大后超出页面上面的部分
-    //console.log('enlarge_top:'+enlarge_top);
-    $('.wrap').css('-webkit-transform', 'scale(' + screen_scale + ',' + screen_scale + ') translate(0px,-' + enlarge_top + 'px)');
-
-    console.log('touch:'+touch);
-
-    touch.on(container, 'touchstart', function (event) {
-        //console.log('touchstart...');
-        event.preventDefault();
-    });
-
-    touch.on(container,'swipeup', function (ev) {
-        if (isAnimating) return;
-        //console.log('swipeup...');
-        last.row = now.row;
-        last.col = now.col;
-        if (last.row != $(container + ' .pageGroup').length) {
-            now.row = last.row + 1;
-            now.col = 1;
-            pageMove(towards.up);
-        }
-        else {
-            now.row = 1;
-            now.col = 1;
-            pageMove(towards.up);
-        }
-    });
-
-    touch.on(container, 'swipedown', function (ev) {
-        if (isAnimating) return;
-        last.row = now.row;
-        last.col = now.col;
-        now.col = 1;
-        if (last.row != 1) {
-            now.row = last.row - 1;
-            pageMove(towards.down);
-        }
-        else {
-            now.row = $(container + ' .pageGroup').length;
-            pageMove(towards.down);
-        }
-    });
-
-    function pageMove(tw) {
-        var nowPage = $($(container + ' .pageGroup')[now.row - 1]).children('.page')[now.col - 1];
-        console.log('nowPage:'+nowPage);
-        var lastPage = $($(container + ' .pageGroup')[last.row - 1]).children('.page')[last.col - 1];
-        console.log('lastPage:'+lastPage);
-
-        switch (tw) {
-            case towards.up:
-                outClass = 'pt-page-moveToTop';
-                inClass = 'pt-page-moveFromBottom';
-                break;
-            case towards.right:
-                outClass = 'pt-page-moveToRight';
-                inClass = 'pt-page-moveFromLeft';
-                break;
-            case towards.down:
-                outClass = 'pt-page-moveToBottom';
-                inClass = 'pt-page-moveFromTop';
-                break;
-            case towards.left:
-                outClass = 'pt-page-moveToLeft';
-                inClass = 'pt-page-moveFromRight';
-                break;
-        }
-        isAnimating = true;//正在进行动画
-        $(nowPage).removeClass("hide");
-
-        $(lastPage).addClass(outClass);
-        $(nowPage).addClass(inClass);
-
-        setTimeout(function () {
-            $(lastPage).removeClass('page-current');
-            $(lastPage).removeClass(outClass);
-            $(lastPage).addClass("hide");
-            $(lastPage).find("img").addClass("hide");
-
-            $(nowPage).addClass('page-current');
-            $(nowPage).removeClass(inClass);
-            $(nowPage).find("img").removeClass("hide");
-
-            isAnimating = false;
-        }, 600);
-
-        //console.log('lastPage:'+lastPage.className);
-        //console.log('nowPage:'+nowPage.className);
-    }*/
 </script>
 </body>
 </html>
