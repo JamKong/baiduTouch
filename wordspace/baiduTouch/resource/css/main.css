@@ -23,6 +23,23 @@ body {
     z-index: 1;
 }
 
+
+.page:after{
+    content: " ";
+    position: absolute;
+    width: 1.5rem;
+    height: .9rem;
+    margin: 0 auto;
+    left: 0;
+    right: 0;
+    bottom: 1.5rem;
+    background: url('../img/icon_up.png') no-repeat;
+    background-size: 100% 100%;
+    -webkit-animation: moveToBottom 1.5s infinite ease-in-out;
+    animation: moveToBottom 1.5s infinite ease-in-out;
+    z-index: 100;
+}
+
 .container .pagination {
     position: absolute;
     z-index: 999;

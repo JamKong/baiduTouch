@@ -18,7 +18,7 @@ function Swiper(container, params) {
     //默认参数配置
     var default_config = {
         initialPage: 0,//设定初始化时page的索引。
-        direction: 'horizontal',
+        direction: 'horizontal',//vertical
         speed: 600,
         autoplay: false,
         autoplaySpeed: 3000,//自动播放的时间间隔
@@ -213,7 +213,7 @@ function Swiper(container, params) {
     }
 
     /**
-     * 页面切换效果
+     * TODO 页面切换效果
      */
     function pageMoveEffect(ef) {
 
