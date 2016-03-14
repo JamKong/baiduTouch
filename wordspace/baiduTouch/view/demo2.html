@@ -14,7 +14,7 @@
     <link rel="stylesheet" type="text/css" href="../resource/css/animations.css"/>
 </head>
 <body>
-<div class="container">
+<div class="container" id="container1">
     <div class="page page-1-1 hide">
         <div class="wrap">
             <img class="img_1 hide pt-page-moveFromTop" src="../resource/img/cover.png"/>
@@ -42,25 +42,33 @@
         </div>
     </div>
 
-    <div class="page page-3-1 hide">
+    <div class="page hide">
         <div class="wrap">
-            <img class="img_1 hide pt-page-moveFromBottom" src="../resource/img/wording_design.png"/>
-            <img class="img_2 hide pt-page-moveCircle" src="../resource/img/circle-design.png"/>
-            <img class="img_3 pt-page-moveFromBottom hide" src="../resource/img/people_design.png"/>
-            <img class="img_4 hide pt-page-scaleUp" src="../resource/img/dot1.png"/>
-            <img class="img_5 hide pt-page-scaleUp" src="../resource/img/check_design.png"/>
-            <img class="img_6 hide pt-page-moveIconUp" src="../resource/img/icon_up.png"/>
-            <img class="img_7 hide pt-page-scaleUp" src="../resource/img/floating_design.png"/>
+            <div class="container" id="container2">
+                <div class="page page-3-1 hide">
+                    <div class="wrap">
+                        <img class="img_1 hide pt-page-moveFromBottom" src="../resource/img/wording_design.png"/>
+                        <img class="img_2 hide pt-page-moveCircle" src="../resource/img/circle-design.png"/>
+                        <img class="img_3 pt-page-moveFromBottom hide" src="../resource/img/people_design.png"/>
+                        <img class="img_4 hide pt-page-scaleUp" src="../resource/img/dot1.png"/>
+                        <img class="img_5 hide pt-page-scaleUp" src="../resource/img/check_design.png"/>
+                        <img class="img_6 hide pt-page-moveIconUp" src="../resource/img/icon_up.png"/>
+                        <img class="img_7 hide pt-page-scaleUp" src="../resource/img/floating_design.png"/>
+                    </div>
+                </div>
+                <div class="page page-3-2 hide">
+                    <div class="wrap">
+                        <img class="img_1 hide pt-page-flipInLeft" src="../resource/img/introduction_design.png"/>
+                        <img class="img_2 hide pt-page-flipInLeft" src="../resource/img/btn_design.png"/>
+                        <img class="img_3 hide pt-page-flipInLeft" src="../resource/img/dot2.png"/>
+                        <img class="img_6 hide pt-page-moveIconUp" src="../resource/img/icon_up.png"/>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
-    <div class="page page-3-2 hide">
-        <div class="wrap">
-            <img class="img_1 hide pt-page-flipInLeft" src="../resource/img/introduction_design.png"/>
-            <img class="img_2 hide pt-page-flipInLeft" src="../resource/img/btn_design.png"/>
-            <img class="img_3 hide pt-page-flipInLeft" src="../resource/img/dot2.png"/>
-            <img class="img_6 hide pt-page-moveIconUp" src="../resource/img/icon_up.png"/>
-        </div>
-    </div>
+
 
     <div class="page page-4-1 hide">
         <div class="wrap">
@@ -91,13 +99,13 @@
     </div>
     <div class="pagination"></div>
 </div>
-<!--<script src="../resource/js/zepto.min.js"></script>-->
 <script src="../resource/js/jquery-1.11.3.min.js"></script>
 <script src="../resource/js/touch.js"></script>
 <script src="../resource/js/index2.js"></script>
 <script>
     window.onload = function () {
-        var swiper = new Swiper('.container', {direction:'vertical',loop:true});
+        var swiper = new Swiper('#container1', {direction:'vertical',loop:true});
+        var swiper2 = new Swiper('#container2', {loop:true});
     }
 </script>
 </body>

@@ -13,7 +13,7 @@ function Swiper(container, params) {
     var screen_scale = window.innerHeight / 500;
     var enlarge_top = 250 * (1 - screen_scale);//放大后超出页面上面的部分
 
-    $('.wrap').css('-webkit-transform', 'scale(' + screen_scale + ',' + screen_scale + ') translate(0px,-' + enlarge_top + 'px)');
+    $(container + ' .page .wrap').css('-webkit-transform', 'scale(' + screen_scale + ',' + screen_scale + ') translate(0px,-' + enlarge_top + 'px)');
 
     //默认参数配置
     var default_config = {
@@ -44,6 +44,7 @@ function Swiper(container, params) {
     paginationDevice(default_config.pagination, default_config.paginationType);
 
     /** 方法调用 end**/
+
     touch.on(container, 'touchstart', function (event) {
         event.preventDefault();
     });
@@ -149,10 +150,10 @@ function Swiper(container, params) {
      * @param tw  方向
      */
     function pageMove(tw) {
-        var nowPage = $(container + ' .page')[now];
-        //console.log('nowPage:' + nowPage);
-        var lastPage = $(container + ' .page')[last];
-        //console.log('lastPage:' + lastPage);
+        var nowPage = $(container + '> .page')[now];
+        console.log('container .page now:' + container +'-'+' .page-'+now);
+        var lastPage = $(container + '> .page')[last];
+        console.log('container .page last:' + container +'-'+' .page-'+last);
 
         switch (tw) {
             case towards.up:
