@@ -5,7 +5,7 @@
 function Swiper(container, params) {
 
     const towards = {up: 1, right: 2, down: 3, left: 4};
-    var now = 0,last = 0;
+    var now = 0, last = 0;
     var pageNum = $(container).children('.page').length;//计算页面存在多少P
     var isAnimating = false;//是否正在执行动画判断标识
     var isDisableAutoplay = false; //是否停止自动播放
@@ -17,22 +17,23 @@ function Swiper(container, params) {
 
     //默认参数配置
     var default_config = {
-        initialPage:0,//设定初始化时page的索引。
-        direction:'horizontal',
-        speed:600,
-        autoplay:false,
-        autoplaySpeed:3000,//自动播放的时间间隔
-        autoplayDisableOnInteraction:true,//用户操作swiper之后，是否禁止autoplay。默认为true：停止。
-        autoplayStopOnLast:false,//如果设置为true，当切换到最后一个slide时停止自动切换
-        effect:'slide',//切换效果
-        pagination:null,//分页器
-        paginationType:'bullets',//分页类型
-        loop:false,
+        initialPage: 0,//设定初始化时page的索引。
+        direction: 'horizontal',
+        speed: 600,
+        autoplay: false,
+        autoplaySpeed: 3000,//自动播放的时间间隔
+        autoplayDisableOnInteraction: true,//用户操作swiper之后，是否禁止autoplay。默认为true：停止。
+        autoplayStopOnLast: false,//如果设置为true，当切换到最后一个slide时停止自动切换
+        effect: 'slide',//切换效果
+        pagination: null,//分页器,例如：.pagination
+        paginationType: 'bullets',//分页类型
+        paginationPosition:'bottom',//分页器放置的位置，可选(top,right,bottom,left)
+        loop: false,
 
     };
 
     /** 根据params传入的值，进行修改配置 **/
-    for(var item in params){
+    for (var item in params) {
         default_config[item] = params[item];
     }
 
@@ -40,7 +41,7 @@ function Swiper(container, params) {
 
     initPage(default_config.initialPage);//初始化该页面，执行动画
     pageAutoPlay(default_config.autoplay);//页面自动播放功能调用
-
+    paginationDevice(default_config.pagination, default_config.paginationType);
 
     /** 方法调用 end**/
     touch.on(container, 'touchstart', function (event) {
@@ -48,57 +49,64 @@ function Swiper(container, params) {
     });
 
 
-    if(default_config.direction === 'horizontal'){ //水平方向
+    if (default_config.direction === 'horizontal') { //水平方向
 
         touch.on(container, 'swipeleft', function (ev) {
             if (isAnimating) return;
             pageMoveOnPlus(towards.left);
-            if(default_config.autoplayDisableOnInteraction){isDisableAutoplay = true;}
+            if (default_config.autoplayDisableOnInteraction) {
+                isDisableAutoplay = true;
+            }
         });
 
         touch.on(container, 'swiperight', function (ev) {
             if (isAnimating) return;
             pageMoveOnMinus(towards.down);
-            if(default_config.autoplayDisableOnInteraction){isDisableAutoplay = true;}
+            if (default_config.autoplayDisableOnInteraction) {
+                isDisableAutoplay = true;
+            }
         });
-    }else{  //vertical 垂直方向
+    } else {  //vertical 垂直方向
         touch.on(container, 'swipeup', function (ev) {
             if (isAnimating) return;
             pageMoveOnPlus(towards.up);
-            if(default_config.autoplayDisableOnInteraction){isDisableAutoplay = true;}
+            if (default_config.autoplayDisableOnInteraction) {
+                isDisableAutoplay = true;
+            }
         });
 
         touch.on(container, 'swipedown', function (ev) {
             if (isAnimating) return;
             pageMoveOnMinus(towards.down);
-            if(default_config.autoplayDisableOnInteraction){isDisableAutoplay = true;}
+            if (default_config.autoplayDisableOnInteraction) {
+                isDisableAutoplay = true;
+            }
         });
     }
 
 
-
-
     //正方向移动页面：up/left
-    function pageMoveOnPlus(tw){
+    function pageMoveOnPlus(tw) {
         if (pageNum > 1) {
-            if(now >= pageNum - 1){
-                if(default_config.loop){
+            if (now >= pageNum - 1) {
+                if (default_config.loop) {
                     last = now;
                     now = 0;
                     pageMove(tw);
                 }
-            }else{
+            } else {
                 last = now;
                 now = last + 1;
                 pageMove(tw);
             }
         }
     }
+
     //负方向移动页面：down/right
-    function pageMoveOnMinus(tw){
+    function pageMoveOnMinus(tw) {
         if (pageNum > 1) {
             if (now <= 0) {
-                if(default_config.loop){
+                if (default_config.loop) {
                     last = now;
                     now = pageNum - 1;
                     pageMove(tw);
@@ -115,22 +123,27 @@ function Swiper(container, params) {
      * 页面自动播放
      * @param isAutoPlay
      */
-    function pageAutoPlay(isAutoPlay){
-        if(isAutoPlay){
-            var interval = setInterval(function(){
-                if(isDisableAutoplay){clearInterval(interval);return;}
-                if(default_config.direction === 'horizontal'){
+    function pageAutoPlay(isAutoPlay) {
+        if (isAutoPlay) {
+            var interval = setInterval(function () {
+                if (isDisableAutoplay) {
+                    clearInterval(interval);
+                    return;
+                }
+                if (default_config.direction === 'horizontal') {
                     pageMoveOnPlus(towards.left);
-                }else{
+                } else {
                     pageMoveOnPlus(towards.up);
                 }
-                if(default_config.autoplayStopOnLast && now == pageNum - 1){
-                    clearInterval(interval);return;
+                if (default_config.autoplayStopOnLast && now == pageNum - 1) {
+                    clearInterval(interval);
+                    return;
                 }
-            },default_config.autoplaySpeed);
+            }, default_config.autoplaySpeed);
 
         }
     }
+
     /**
      * 页面移动
      * @param tw  方向
@@ -165,17 +178,23 @@ function Swiper(container, params) {
         $(lastPage).addClass(outClass);
         $(nowPage).addClass(inClass);
 
+        //分页器状态切换
+        if(default_config.pagination != null){
+            $($(container + ' ' + default_config.pagination).find('li')[last]).removeClass('pagination-current');
+            $($(container + ' ' + default_config.pagination).find('li')[now]).addClass('pagination-current');
+        }
         setTimeout(function () {
             $(lastPage).removeClass('page-current');
             $(lastPage).removeClass(outClass);
             $(lastPage).addClass("hide");
             $(lastPage).find("img").addClass("hide");
-
             $(nowPage).addClass('page-current');
+
+
             $(nowPage).removeClass(inClass);
             $(nowPage).find("img").removeClass("hide");
-
             isAnimating = false;
+
         }, default_config.speed);
 
     }
@@ -184,7 +203,7 @@ function Swiper(container, params) {
      * 初始化页
      * @param initialPage
      */
-    function initPage(initialPage){
+    function initPage(initialPage) {
         var firstPage = $(container + ' .page')[initialPage];
         now = initialPage;
         $(firstPage).removeClass('hide');
@@ -195,7 +214,40 @@ function Swiper(container, params) {
     /**
      * 页面切换效果
      */
-    function pageMoveEffect(ef){
+    function pageMoveEffect(ef) {
 
     }
+
+    /**
+     * 分页器
+     * @param p -- pagination
+     * @param pType -- paginationType
+     */
+    function paginationDevice(p, pType) {
+        if (p == null) {
+            return;
+        }
+
+        var appendHtml = '<ol class="'+default_config.paginationType+'">';
+
+        for (var i = 0; i < pageNum; i++) {
+            if(i == default_config.initialPage){
+                appendHtml += '<li class="pagination-current"></li>';
+                continue;
+            }
+            appendHtml += '<li></li>';
+        }
+        appendHtml += '</ol>';
+        $(container + ' ' + p).append(appendHtml);
+
+        if(default_config.paginationPosition == 'top' || default_config.paginationPosition == 'bottom'){
+            $(container + ' ' + p).css('margin-left', -16 * pageNum * 0.5 + 'px');//每个li大小为16px
+        }else if(default_config.paginationPosition == 'right' || default_config.paginationPosition == 'left'){
+            $(container + ' ' + p).css('margin-top', -(18 * pageNum + 8) * 0.5 + 'px');//每个li大小为16px
+        }
+
+        //console.log(appendHtml);
+        $(container + ' ' +default_config.pagination).addClass('pagination-position-'+default_config.paginationPosition);
+    }
+
 }

@@ -10,6 +10,7 @@
     <meta name="format-detection" content="email=no">
     <link rel="stylesheet" type="text/css" href="../resource/css/reset.css"/>
     <link rel="stylesheet" type="text/css" href="../resource/css/index.css"/>
+    <link rel="stylesheet" type="text/css" href="../resource/css/main.css" />
     <link rel="stylesheet" type="text/css" href="../resource/css/animations.css"/>
 </head>
 <body>
@@ -40,6 +41,7 @@
             <img class="img_6 hide pt-page-moveIconUp" src="../resource/img/icon_up.png"/>
         </div>
     </div>
+
     <div class="page page-3-1 hide">
         <div class="wrap">
             <img class="img_1 hide pt-page-moveFromBottom" src="../resource/img/wording_design.png"/>
@@ -87,7 +89,7 @@
             <img class="img_2 hide pt-page-rotateCubeTopIn" src="../resource/img/btn_join.png"/>
         </div>
     </div>
-
+    <div class="pagination"></div>
 </div>
 <!--<script src="../resource/js/zepto.min.js"></script>-->
 <script src="../resource/js/jquery-1.11.3.min.js"></script>
@@ -95,7 +97,7 @@
 <script src="../resource/js/index2.js"></script>
 <script>
     window.onload = function () {
-        var swiper = new Swiper('.container', {direction:'vertical',loop:true,initialPage:0,autoplay:true,autoplayStopOnLast:true});
+        var swiper = new Swiper('.container', {direction:'vertical',loop:true});
     }
 </script>
 </body>
