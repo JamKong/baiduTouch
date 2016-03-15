@@ -24,7 +24,7 @@ body {
 }
 
 
-.page:after{
+body > .container > .page:after{
     content: " ";
     position: absolute;
     width: 1.5rem;
