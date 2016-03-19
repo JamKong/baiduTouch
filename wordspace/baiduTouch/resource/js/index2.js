@@ -62,7 +62,7 @@ function Swiper(container, params) {
 
         touch.on(container, 'swiperight', function (ev) {
             if (isAnimating) return;
-            pageMoveOnMinus(towards.down);
+            pageMoveOnMinus(towards.right);
             if (default_config.autoplayDisableOnInteraction) {
                 isDisableAutoplay = true;
             }
@@ -146,7 +146,7 @@ function Swiper(container, params) {
     }
 
     /**
-     * 页面移动
+     * 页面切换
      * @param tw  方向
      */
     function pageMove(tw) {
@@ -189,9 +189,8 @@ function Swiper(container, params) {
             $(lastPage).removeClass(outClass);
             $(lastPage).addClass("hide");
             $(lastPage).find("img").addClass("hide");
+
             $(nowPage).addClass('page-current');
-
-
             $(nowPage).removeClass(inClass);
             $(nowPage).find("img").removeClass("hide");
             isAnimating = false;
