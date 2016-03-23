@@ -29,7 +29,7 @@ function Swiper(container, params) {
         paginationType: 'bullets',//分页类型
         paginationPosition:'bottom',//分页器放置的位置，可选(top,right,bottom,left)
         loop: false,
-        allowFirstToLastInFirstTime:false,
+        allowFirstToLastInFirstTime:false,//允许正在访问页面但未从第一页到尾页正常浏览完的用户从第一页返回到尾页的操作
     };
 
     /** 根据params传入的值，进行修改配置 **/
@@ -54,7 +54,7 @@ function Swiper(container, params) {
 
         touch.on(container, 'swipeleft', function (ev) {
             if (isAnimating) return;
-            pageMoveOnPlus(towards.left);
+            pageMoveDown(towards.left);
             if (default_config.autoplayDisableOnInteraction) {
                 isDisableAutoplay = true;
             }
@@ -62,7 +62,7 @@ function Swiper(container, params) {
 
         touch.on(container, 'swiperight', function (ev) {
             if (isAnimating) return;
-            pageMoveOnMinus(towards.right);
+            pageMoveUp(towards.right);
             if (default_config.autoplayDisableOnInteraction) {
                 isDisableAutoplay = true;
             }
@@ -70,7 +70,7 @@ function Swiper(container, params) {
     } else {  //vertical 垂直方向
         touch.on(container, 'swipeup', function (ev) {
             if (isAnimating) return;
-            pageMoveOnPlus(towards.up);
+            pageMoveDown(towards.up);
             if (default_config.autoplayDisableOnInteraction) {
                 isDisableAutoplay = true;
             }
@@ -78,7 +78,7 @@ function Swiper(container, params) {
 
         touch.on(container, 'swipedown', function (ev) {
             if (isAnimating) return;
-            pageMoveOnMinus(towards.down);
+            pageMoveUp(towards.down);
             if (default_config.autoplayDisableOnInteraction) {
                 isDisableAutoplay = true;
             }
@@ -86,8 +86,8 @@ function Swiper(container, params) {
     }
 
 
-    //正方向移动页面：up/left
-    function pageMoveOnPlus(tw) {
+    //下一页：up/left 
+    function pageMoveDown(tw) {
         if (pageNum > 1) {
             if (now >= pageNum - 1) {
                 if (default_config.loop) {
@@ -104,8 +104,8 @@ function Swiper(container, params) {
         }
     }
 
-    //负方向移动页面：down/right
-    function pageMoveOnMinus(tw) {
+    //上一页：down/right
+    function pageMoveUp(tw) {
         if (pageNum > 1) {
             if (now <= 0) {
                 if(default_config.allowFirstToLastInFirstTime){
@@ -135,9 +135,9 @@ function Swiper(container, params) {
                     return;
                 }
                 if (default_config.direction === 'horizontal') {
-                    pageMoveOnPlus(towards.left);
+                    pageMoveDown(towards.left);
                 } else {
-                    pageMoveOnPlus(towards.up);
+                    pageMoveDown(towards.up);
                 }
                 if (default_config.autoplayStopOnLast && now == pageNum - 1) {
                     clearInterval(interval);
@@ -154,9 +154,9 @@ function Swiper(container, params) {
      */
     function pageMove(tw) {
         var nowPage = $(container + '> .page')[now];
-        console.log('container .page now:' + container +'-'+' .page-'+now);
+        //console.log('container .page now:' + container +'-'+' .page-'+now);
         var lastPage = $(container + '> .page')[last];
-        console.log('container .page last:' + container +'-'+' .page-'+last);
+        //console.log('container .page last:' + container +'-'+' .page-'+last);
 
         switch (tw) {
             case towards.up:
