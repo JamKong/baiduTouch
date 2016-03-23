@@ -29,7 +29,7 @@ function Swiper(container, params) {
         paginationType: 'bullets',//分页类型
         paginationPosition:'bottom',//分页器放置的位置，可选(top,right,bottom,left)
         loop: false,
-
+        allowFirstToLastInFirstTime:false,
     };
 
     /** 根据params传入的值，进行修改配置 **/
@@ -94,6 +94,7 @@ function Swiper(container, params) {
                     last = now;
                     now = 0;
                     pageMove(tw);
+                    default_config.allowFirstToLastInFirstTime = true;//当用户从第一页到最后一页正常浏览完H5页面后，将打开允许从首页直接访问尾页的功能
                 }
             } else {
                 last = now;
@@ -107,10 +108,12 @@ function Swiper(container, params) {
     function pageMoveOnMinus(tw) {
         if (pageNum > 1) {
             if (now <= 0) {
-                if (default_config.loop) {
-                    last = now;
-                    now = pageNum - 1;
-                    pageMove(tw);
+                if(default_config.allowFirstToLastInFirstTime){
+                    if (default_config.loop) {
+                        last = now;
+                        now = pageNum - 1;
+                        pageMove(tw);
+                    }
                 }
             } else {
                 last = now;
